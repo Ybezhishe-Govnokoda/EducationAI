@@ -1,8 +1,11 @@
 from g4f.client import Client
+from flask import Flask, jsonify
 from config import OPENAI_API_KEY
 
+app = Flask(__name__)
 client = Client(api_key = OPENAI_API_KEY)
 
+@app.route('/request', methods=['ASK'])
 def ask_gpt(promt: str)->str:
     #Открытие файла со всеми лекциями
     with open("database.txt") as file:
@@ -18,7 +21,7 @@ def ask_gpt(promt: str)->str:
                 "content": f"Используя эту информацию: {database} ответь на вопрос: {promt}"
             }]
         )
-        return response.choices[0].message.content
+        return jsonify(response.choices[0].message.content)
 
     except Exception as err:
-        return f"An error occurred:{err}"
+        return jsonify(f"An error occurred:{err}")

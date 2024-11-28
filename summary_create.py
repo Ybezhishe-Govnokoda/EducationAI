@@ -1,6 +1,8 @@
 from config import OPENAI_API_KEY
 from g4f.client import Client
+from flask import Flask, jsonify
 
+app = Flask(__name__)
 client = Client(api_key = OPENAI_API_KEY)
 
 with open("source_list.txt") as s_list:
@@ -8,6 +10,7 @@ with open("source_list.txt") as s_list:
 s_list.close()
 
 #замена содержимого файла его кратким содержанием
+@app.route('/summary', methods=['CREATE'])
 def summary_create():
     for path in need_to_compress:
         with open(path) as file:
@@ -28,7 +31,7 @@ def summary_create():
             summary = "Fail to compress"
 
         with open(path, "w") as response:
-            response.write(summary)
+            response.write(jsonify(summary))
         response.close()
 
         # удаление из списка путей к обработанным файлам
@@ -36,5 +39,5 @@ def summary_create():
 
     #перезапись файла обновленным списком
     with open("source_list.txt", "w") as s_list:
-        s_list.write("")
+        s_list.write(jsonify(""))
     s_list.close()

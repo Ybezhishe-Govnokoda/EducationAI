@@ -1,5 +1,9 @@
 import whisper
+from flask import Flask, jsonify
 
+app = Flask(__name__)
+
+@app.route('/transcription', methods=['T_CREATE'])
 def transcribe(path: str):
     global path_to_file
     path_to_file = path
@@ -27,6 +31,7 @@ def transcribe(path: str):
         return err
 
 #Добавление к лекции её названия и краткого описания в отдельный файл для системы рекомендаций
+@app.route('/lesson_name', methods=['CHOOSE'])
 def lesson_name_choosing():
     try:
         with open(f"text: {path}.txt", "r") as file:
