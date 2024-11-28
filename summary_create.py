@@ -41,3 +41,4 @@ def summary_create():
     with open("source_list.txt", "w") as s_list:
         s_list.write(jsonify(""))
     s_list.close()
+#.

@@ -25,3 +25,4 @@ def ask_gpt(promt: str)->str:
 
     except Exception as err:
         return jsonify(f"An error occurred:{err}")
+#.

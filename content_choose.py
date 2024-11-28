@@ -48,3 +48,4 @@ def choose_course(result: str)->str:
 
     except Exception as err:
         return jsonify(f"An error occurred:{err}")
+#.
