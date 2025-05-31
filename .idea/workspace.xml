@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf23fcfd-a018-4482-82b6-2743d7a7d277" name="Changes" comment="first commit">
-      <change beforePath="$PROJECT_DIR$/ATA_Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ATA_Models.py" afterDir="false" />
-    </list>
+    <list default="true" id="bf23fcfd-a018-4482-82b6-2743d7a7d277" name="Changes" comment="first commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
