@@ -14,7 +14,7 @@ def round_to_nearest_resolution_acceptable_by_vae(pipe, height, width):
     return height, width
 
 
-class ImageGenerator:
+class ImageToVideo:
     """Сначала загрузи модель, не забудь, сука"""
     def __init__(self,
                  image_path: str, prompt: str,
@@ -41,7 +41,7 @@ class ImageGenerator:
         self.negative_prompt = negative_prompt  # For example "worst quality, inconsistent motion, blurry, jittery, distorted"
         self.expected_height, self.expected_width = expected_height, expected_width
         self.downscale_factor = downscale_factor
-        self.num_frames = number_of_frames
+        self.number_of_frames = number_of_frames
 
     def update_parameters_with_image(self,
                         image_path: str, prompt: str,
@@ -59,7 +59,7 @@ class ImageGenerator:
         self.negative_prompt = negative_prompt# For example "worst quality, inconsistent motion, blurry, jittery, distorted"
         self.expected_height, self.expected_width = expected_height, expected_width
         self.downscale_factor = downscale_factor
-        self.num_frames = number_of_frames
+        self.number_of_frames = number_of_frames
 
     def generate_video_from_image(self, output_path):
         # Part 1. Generate video at smaller resolution
@@ -76,7 +76,7 @@ class ImageGenerator:
             negative_prompt=self.negative_prompt,
             width=downscaled_width,
             height=downscaled_height,
-            num_frames=self.num_frames,
+            num_frames=self.number_of_frames,
             num_inference_steps=30,
             generator=torch.Generator().manual_seed(0),
             output_type="latent",
@@ -98,7 +98,7 @@ class ImageGenerator:
             negative_prompt=self.negative_prompt,
             width=upscaled_width,
             height=upscaled_height,
-            num_frames=self.num_frames,
+            num_frames=self.number_of_frames,
             denoise_strength=0.4,  # Effectively, 4 inference steps out of 10
             num_inference_steps=10,
             latents=upscaled_latents,
@@ -114,7 +114,7 @@ class ImageGenerator:
         export_to_video(video, output_path, fps=24)
 
 
-class Transcript:
+class AudioToText:
     def __init__(self):
         self.__model = whisper.load_model("turbo")
 
