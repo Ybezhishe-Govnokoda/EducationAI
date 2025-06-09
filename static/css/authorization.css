@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body{
+    background-image: url("/static/sprites/back.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh; /* Обеспечивает, чтобы body занимал всю высоту экрана */
+    overflow: hidden; /* Отключает прокрутку страницы */
+}
+
+.avoska{
+    position: absolute;
+    margin-top: 0;
+    margin-right: 0;
+    height: 99%;
+    width: 99%;
+}
+
+.Kim{
+    position: absolute;
+    right: -40.2%;
+    bottom: 0;
+}
+
+.Kim_img{
+    max-width: 25%;
+    height: auto;
+}
+
+.login_back{
+    text-align: center;
+}
+
+.login_back_img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.input_box{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    top: 300px;
+}
+
+.input_box2{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    top: 320px;
+}
+.input_box3{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    top: 340px;
+}
+
+.Name{
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    color: #1f618d ;
+}
+
+.login_btn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 55px;
+    width: 205px;
+    background-color: #081E43;
+    border-radius: 8px;
+}
+
+.login_btn:hover{
+    background-color: #081E55;
+}
+
+.login_btn:active{
+    background-color: #081E43;
+}
+
+.register_btn{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 55px;
+    width: 240px;
+    background-color: #081E43;
+    border-radius: 8px;
+}
+
+.register_btn:hover{
+    background-color: #081E55;
+}
+
+.register_btn:active{
+    background-color: #081E43;
+}
+
+.logo_back{
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#mail{
+    background-color: #808080;
+    height: 55px;
+    width: 505px;
+    border: none;
+    border-radius: 8px;
+    text-indent: 40px;
+    cursor: pointer;
+}
+
+#password{
+    background-color: #808080;
+    height: 55px;
+    width: 505px;
+    border: none;
+    border-radius: 8px;
+    text-indent: 40px;
+    cursor: pointer;
+}
+
+#user_name{
+    background-color: #808080;
+    height: 55px;
+    width: 505px;
+    border: none;
+    border-radius: 8px;
+    text-indent: 40px;
+    cursor: pointer;
+}
+
+#log_in{
+    border: none;
+    color: #cccccc;
+    font-size: 23px;
+}
+
+#register{
+    border: none;
+    color: #cccccc;
+    font-size: 23px;
+}
+
+.register{
+    text-decoration: none;
+    position: absolute;
+    top: 630px;
+    left: 50%;
+    transform: translate(-50%);
+    color: #3A3A3A;
+}

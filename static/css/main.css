@@ -1,0 +1,187 @@
+.body{
+    background-image: url("/static/sprites/back.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh; /* Обеспечивает, чтобы body занимал всю высоту экрана */
+    overflow: hidden; /* Отключает прокрутку страницы */
+}
+
+.menu_background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.menu_icon{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #3A3A3A;
+}
+
+.wrapper{
+    position: relative;
+    overflow-x: hidden;
+}
+
+.menu{
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    background-color: #808080;
+    transition: 1s;
+    transform: translateX(-100%);
+}
+
+.menu-active{
+    transform: translateX(0);
+}
+
+.menu_list{
+    display: flex;
+    align-items: center;
+    height: 50%;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.menu_btn{
+    width: 35px;
+    height: 35px;
+    background-color: #3A3A3A;
+    border: none;
+    background-image: url("sprites/menu_icon.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 7px;
+    right: -40px;
+}
+
+.logo{
+    position: relative;
+    top: 80px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #40E0D0;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.logo_background{
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.media-player {
+    flex-grow: 1;
+    padding: 70px;
+    width: 1450px;
+    height: auto;
+}
+
+.chat{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.kim_window{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.kim_small{
+    position: absolute;
+    top: 23px;
+    left: 57px;
+}
+
+.inputField2{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-57%);
+}
+
+.chatBtn{
+    width: 50px;
+    height: 50px;
+    background-color: #3A3A3A;
+    border: none;
+    background-image: url("sprites/send.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    border-radius: 5px;
+}
+
+.answer{
+    position: absolute;
+    bottom: 170px;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #3A3A3A;
+    width: 465px;
+    height: 90px;
+    border-radius: 8px;
+}
+
+#inputField2{
+    background-color: #808080;
+    font-size: 20px;
+    height: 55px;
+    width: 410px;
+    border: none;
+    border-radius: 8px;
+    text-indent: 40px;
+    cursor: pointer;
+}
+
+#code{
+    position: relative;
+    top: 170px;
+    border: none;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+}
+
+#robots{
+    position: relative;
+    top: 250px;
+    border: none;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+}
+
+#leader{
+    position: relative;
+    top: 330px;
+    border: none;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+}
+
+#upload{
+    position: relative;
+    top: 410px;
+    border: none;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+}
