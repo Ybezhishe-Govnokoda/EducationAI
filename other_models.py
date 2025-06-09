@@ -133,3 +133,7 @@ class AudioToText:
 
         except Exception as err:
             return f"Error occurred: {err!r}"
+
+
+class TextToSpeech:
+    pass
