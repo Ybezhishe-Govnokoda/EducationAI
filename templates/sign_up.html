@@ -15,38 +15,30 @@
 
 <body class="body">
 <div>
-    <img class="avoska" src="{{ url_for('static', filename='sprites/avoska.png') }}" alt="">
+    <img class="grid" src="{{ url_for('static', filename='sprites/grid.png') }}" alt="">
 </div>
 
 <div class="Kim">
     <img class="Kim_img" src="{{ url_for('static', filename='sprites/Kim.png') }}" alt="">
 </div>
 
-<div class="login_back">
-    <img class="login_back_img" src="{{ url_for('static', filename='sprites/login_back.png') }}" alt="" width="623" height="417">
-
-    <div class="input_box">
-        <input id="mail" style="font-size: 21px" name="user_email" type="email" placeholder="e-mail">
-    </div>
-
-    <div class="input_box2">
-        <input id="password" style="font-size: 21px" name="user_password" type="password" placeholder="password">
-    </div>
-
-    <div class="input_box3">
-        <input id="user_name" style="font-size: 21px" name="user_name" type="text" placeholder="name">
-    </div>
-
-    <div class="register_btn">
-        <button type="submit" id="register" class="register_btn">Sign up</button>
-    </div>
-
+<div class="log_in_form">
     <div class="logo_back">
         <img src="{{ url_for('static', filename='sprites/logo_back.png') }}" alt="" width="800" height="auto">
     </div>
 
     <div class="Name">EducationAI</div>
-
 </div>
+
+    <img class="login_back_img" src="{{ url_for('static', filename='sprites/login_back.png') }}" alt="" width="623" height="417">
+
+    <form method="POST">
+        <label for="mail"></label> <input class="e-mail_box" id="mail" style="font-size: 21px" name="user_email" type="email" placeholder="e-mail">
+        <label for="password"></label> <input class="password_box" id="password" style="font-size: 21px" name="user_password" type="password" placeholder="password">
+        <label for="user_name"></label> <input class="username_box" id="user_name" style="font-size: 21px" name="user_name" type="text" placeholder="name">
+
+        <button  type="submit" id="register" class="register_btn">Sign up</button>
+    </form>
+
 </body>
 </html>
