@@ -29,7 +29,7 @@ body {
 }
 
 .Kim_img {
-  width: 15vw;  /* 10% от ширины экрана */
+  width: 15vw;
   height: auto;
 }
 
@@ -55,13 +55,13 @@ body {
 
 .form-control:focus {
   background-color: #808080 !important;
-  color: #fff;
+  color: #081E43;
   outline: none;
   box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.25);
 }
 
 .form-control::placeholder {
-  color: #ddd;
+  color: #081E43;
 }
 
 .btn-primary {
@@ -86,7 +86,7 @@ h1.Name {
   font-size: 8rem;
   color: #d0d3d4;
   font-weight: bold;
-  margin-bottom: -95px; /* Чуть перекрывает фон, если нужно */
+  margin-bottom: -95px;
   z-index: 2;
   position: relative;
   margin-top: 0;
@@ -111,7 +111,7 @@ a.btn-link:hover {
 }
 
 .logo-block {
-  margin-top: -27vh; /* Небольшой отступ от верхнего края */
+  margin-top: -27vh;
   margin-bottom: 1vh;
   position: relative;
   z-index: 2;

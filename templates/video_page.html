@@ -10,18 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/video_page.css') }}">
 
     <title>{{ name }}</title>
-
-    <script>
-        let button = document.getElementById('menuButton');
-        let element = document.getElementById('menu');
-
-        button.addEventListener('click', function() {
-            element.classList.replace('menu', 'menu-active');
-        });
-    </script>
 </head>
 
 <body class="body">
@@ -44,6 +35,17 @@
         </nav>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let button = document.getElementById('menuButton');
+        let element = document.getElementById('menu');
+
+        button.addEventListener('click', function () {
+            element.classList.replace('menu', 'menu-active');
+        });
+    });
+</script>
 
 <div class="media-player">
     <video controls width="100%">
