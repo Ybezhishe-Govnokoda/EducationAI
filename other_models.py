@@ -1,12 +1,9 @@
 import torch
 import whisper
 from pathlib import Path
-from diffusers import (LTXConditionPipeline,
-                       LTXLatentUpsamplePipeline)
+from diffusers import LTXConditionPipeline, LTXLatentUpsamplePipeline
 from diffusers.pipelines.ltx.pipeline_ltx_condition import LTXVideoCondition
-from diffusers.utils import (export_to_video,
-                             load_image,
-                             load_video)
+from diffusers.utils import export_to_video, load_image, load_video
 
 def round_to_nearest_resolution_acceptable_by_vae(pipe, height, width):
     height = height - (height % pipe.vae_spatial_compression_ratio)
