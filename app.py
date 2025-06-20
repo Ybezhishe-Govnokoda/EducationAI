@@ -1,17 +1,22 @@
 from flask import Flask, render_template, request, redirect, jsonify
+
 from databaser import Databaser
 from LLM import LlmForUser
+from config import CHAT_START_PROMPT
+
+from urllib.parse import unquote
 import re
 
 
 app = Flask(__name__)
 db = Databaser()
 llm = LlmForUser()
-llm.start_chat('Ты бот-помощник в обучении. Обязательно давай ответы только на русском языке. Иногда можно использовать английский, но только при необходимости. Если в ответе будет хоть одно китайское слово, то русские студенты уйдут от нас и моя жизнь будет разрушена')
 
+llm.start_chat(CHAT_START_PROMPT)
 name = ''
 
 
+# Страница с авторизацией
 @app.route('/', methods=['POST', 'GET'])
 def authorize():
     if request.method == 'POST':
@@ -26,17 +31,41 @@ def authorize():
     else:
         return render_template('login.html')
 
+# Страница с регистрацией
+@app.route('/reg', methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        db.add_user(request.form['user_name'],
+                    request.form['user_email'],
+                    request.form['user_password'])
+        return redirect('/')
+    else:
+        return render_template('sign_up.html')
 
+
+# Тут будет главная с навигацией
 @app.route('/main')
 def main():
-    return render_template('main.html')
+    courses = db.get_courses()
+    course_lessons = {}
 
-@app.route('/video-page')
-def video_page():
+    for course in courses:
+        course_lessons[course['id']] = db.get_files_from_course(course['id'])
+
+    return render_template('main.html',
+                           name=name,
+                           courses=courses,
+                           course_lessons=course_lessons)
+
+
+# Страница с видео-уроком и чатом
+@app.route('/<video>')
+def video_page(video):
     # ОБЯЗАТЕЛЬНО СМЕНИ test на video_page
-    return render_template('test.html', name=name)
+    decoded_video = unquote(video)
+    return render_template('test.html', name=name, video=decoded_video)
 
-
+# Вспомогательная для чата
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.get_json()
@@ -57,17 +86,7 @@ def chat():
 
 
 
-@app.route('/reg', methods=['POST', 'GET'])
-def register():
-    if request.method == 'POST':
-        db.add_user(request.form['user_name'],
-                    request.form['user_email'],
-                    request.form['user_password'])
-        return redirect('/')
-    else:
-        return render_template('sign_up.html')
-
-
+# Чисто для тестов жи есть
 @app.route('/test', methods=['POST', 'GET'])
 def test():
     return render_template('test.html')
