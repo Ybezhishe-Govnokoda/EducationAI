@@ -25,7 +25,7 @@ class Databaser:
                             type TEXT,
                             FOREIGN KEY(course_id) REFERENCES courses(id))''')
 
-    # Для работы с юзерами
+    # Для работы с пользователями
     def add_user(self, name: str, mail: str, password: str):
         self.cursor.execute('''INSERT INTO users (name, mail, password) 
                 VALUES (?, ?, ?)''', (name, mail, password))
@@ -36,13 +36,13 @@ class Databaser:
                 VALUES (?, ?, 1)''', (name, mail, password))
         self.connection.commit()
 
-    # def get_user(self, user_id):
-    #     self.cursor.execute('''SELECT * FROM users
-    #                             WHERE user_id = ?''', user_id)
-    #     r = self.cursor.fetchone()
-    #     if not r:
-    #         return "None"
-    #     return dict(r)
+    def get_user(self, user_id):
+        self.cursor.execute('''SELECT * FROM users
+                                WHERE user_id = ?''', (user_id,))
+        r = self.cursor.fetchone()
+        if not r:
+            return "None"
+        return dict(r)
 
     def check_user(self, mail: str, password: str):
         self.cursor.execute('''SELECT * FROM users 
@@ -52,7 +52,7 @@ class Databaser:
         r = self.cursor.fetchone()
         if not r:
             return "None"
-        return r
+        return dict(r)
 
     # Для работы с курсами
     def add_course(self, name):
@@ -96,11 +96,6 @@ class Databaser:
 
 
 # db = Databaser()
-#
-# courses = db.get_courses()
-# files = []
-#
-# for course in courses:
-#     files.append(db.get_files_from_course(course['id']))
-#
-# print(files)
+# user = db.check_user('egor@mail.com', 'egor')
+# print(user)
+# print(user['user_id'])

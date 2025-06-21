@@ -3,3 +3,4 @@ venv/
 .idea/
 static/uploads/
 database.db
+.env
