@@ -58,12 +58,25 @@ def main():
                            course_lessons=course_lessons)
 
 
+# Добавление курса
+@app.route('/api/add-course', methods=['POST'])
+def api_add_course():
+    data = request.get_json()
+    course_name = data.get('course_name')
+
+    if not course_name:
+        return jsonify({'success': False, 'message': 'Нет имени курса'}), 400
+
+    db.add_course(course_name)
+
+    return jsonify({'success': True, 'course_name': course_name})
+
+
 # Страница с видео-уроком и чатом
 @app.route('/<video>')
 def video_page(video):
     # ОБЯЗАТЕЛЬНО СМЕНИ test на video_page
-    decoded_video = unquote(video)
-    return render_template('test.html', name=name, video=decoded_video)
+    return render_template('test.html', name=name, video=video)
 
 # Вспомогательная для чата
 @app.route('/chat', methods=['POST'])
