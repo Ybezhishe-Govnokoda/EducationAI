@@ -80,13 +80,9 @@ class Databaser:
         rows = self.cursor.fetchall()
         return [dict(row) for row in rows] if rows else []
 
-    def add_file(self, course_id: int, path_to_file: str):
+    def add_file_to_course(self, course_id: int, name: str, path: str, type: str):
         self.cursor.execute('''INSERT INTO course_files (course_id, name, path, type) 
-                        VALUES (?, ?, ?, ?)''',
-            (course_id,
-            path_to_file.rsplit('.', 1)[0],
-            path_to_file,
-            path_to_file.rsplit('.', 1)[-1]))
+                        VALUES (?, ?, ?, ?)''',(course_id, name, path, type))
         self.connection.commit()
 
     def get_file(self, filename):

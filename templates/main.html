@@ -34,28 +34,60 @@
             <svg class="bi pe-none me-2" width="40" height="32" aria-hidden="true">
                 <use xlink:href="#bootstrap"></use>
             </svg>
-            <span class="fs-4">Sidebar</span>
+            <span class="fs-4">Главная</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li>
-                <form id="add-course-form" class="d-flex align-items-center gap-2 px-3">
-                    <input type="text"
-                           name="course_name"
-                           id="course_name"
-                           placeholder="Добавить курс"
-                           class="form-control form-control-sm" required
-                           autocomplete="off">
-                </form>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-body-emphasis">
-                    <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
-                        <use xlink:href="#table"></use>
-                    </svg>
-                    Orders
-                </a>
-            </li>
+            <!-- Добавление курса -->
+            <form method="POST" id="add-course-form" class="px-3 mt-2">
+                <input type="text"
+                       name="course_name"
+                       id="course_name"
+                       placeholder="Добавить курс"
+                       class="form-control form-control-sm mb-2"
+                       autocomplete="off" required>
+            </form>
+
+            <!-- Добавление уроков -->
+            <div class="px-3">
+                <button class="form-control form-control-sm text-start mb-2"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#courses-collapse"
+                        aria-expanded="false"
+                        style="color: #081E43;">
+                    Добавить урок
+                </button>
+
+                <div class="collapse" id="courses-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        {% for course in courses %}
+                        <li class="mb-2">
+                            <button class="btn btn-sm btn-outline-secondary w-100 text-start collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#add-lesson-{{ course.id }}"
+                                    aria-expanded="false"
+                                    aria-controls="add-lesson-{{ course.id }}">
+                                {{ course.name }}
+                            </button>
+
+                            <div class="collapse mt-2" id="add-lesson-{{ course.id }}">
+                                <form method="POST"
+                                      action="{{ url_for('add_lesson') }}"
+                                      enctype="multipart/form-data"
+                                      class="d-flex flex-column gap-1 mt-2">
+                                    <input type="hidden" name="course_id" value="{{ course.id }}">
+                                    <input type="text" name="lesson_name" class="form-control form-control-sm" placeholder="Название урока" autocomplete="off" required>
+                                    <input type="file" name="lesson_file" class="form-control form-control-sm" autocomplete="off" required>
+                                    <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
+                                </form>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
         </ul>
 
 
@@ -142,7 +174,7 @@
         if (!courseName) return;
 
         try {
-            const response = await fetch('/api/add-course', {
+            const response = await fetch('/add-course', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ course_name: courseName })
