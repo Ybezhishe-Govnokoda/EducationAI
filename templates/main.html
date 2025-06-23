@@ -27,9 +27,8 @@
 
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
     </div>
-    <div class="offcanvas-body">
 
-        <!-- Твой шаблон сайдбара -->
+    <div class="offcanvas-body">
         <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <svg class="bi pe-none me-2" width="40" height="32" aria-hidden="true">
                 <use xlink:href="#bootstrap"></use>
@@ -90,7 +89,7 @@
 
         </ul>
 
-
+        <!-- Плашка юзера в сайдбаре -->
         <hr>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
@@ -107,7 +106,7 @@
     </div>
 </div>
 
-
+<!-- Развертывающийся список с курсами -->
 <header class="bg-primary text-white text-center p-4 mb-4">
     <h1>EducationAI — Курсы</h1>
 </header>
@@ -118,6 +117,7 @@
     {% for course in courses %}
         {% set idx = loop.index %}
         <div class="accordion-item">
+            <!-- Тут вкладки с курсами -->
             <h2 class="accordion-header" id="heading{{ idx }}">
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse"
@@ -127,6 +127,8 @@
                     {{ course.name }}
                 </button>
             </h2>
+
+            <!-- Тут уроки внутри курсов -->
             <div id="collapse{{ idx }}"
                  class="accordion-collapse collapse"
                  aria-labelledby="heading{{ idx }}"
@@ -135,7 +137,7 @@
                     <ul>
                         {% for file in course_lessons[course.id] %}
                         <li>
-                            <a href="{{ url_for('video_page', video=file.name | string) }}">
+                            <a href="{{ url_for('video_page', file_id=file.id) }}">
                                 {{ file.name }}
                             </a>
                         </li>
@@ -149,7 +151,7 @@
     </div>
 </main>
 
-
+<!-- Всплывающее уведомление о добавлении курса -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
     <div id="toast-success" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">

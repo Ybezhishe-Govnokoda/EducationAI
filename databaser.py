@@ -85,10 +85,10 @@ class Databaser:
                         VALUES (?, ?, ?, ?)''',(course_id, name, path, type))
         self.connection.commit()
 
-    def get_file(self, filename):
+    def get_file(self, file_id):
         self.cursor.execute('''SELECT * FROM course_files 
-                                WHERE name = ?''',
-                                (filename,))
+                                WHERE id = ?''',
+                                (file_id,))
         r = self.cursor.fetchone()
         if not r:
             return "None"

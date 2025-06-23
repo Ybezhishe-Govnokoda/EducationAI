@@ -1,4 +1,8 @@
-from flask import Flask, render_template, request, redirect, jsonify, session
+from flask import (Flask,
+                   render_template,
+                   request, redirect,
+                   jsonify,
+                   session)
 
 from databaser import Databaser
 from LLM import LlmForUser
@@ -10,10 +14,8 @@ import re
 
 app = Flask(__name__)
 db = Databaser()
-llm = LlmForUser()
 load_dotenv()
 
-llm.start_chat(os.getenv('CHAT_START_PROMPT'))
 app.secret_key = os.getenv('SECRET_KEY')
 
 
@@ -66,6 +68,7 @@ def main():
         course_lessons[course['id']] = db.get_files_from_course(course['id'])
 
     user = db.get_user(user_id)
+
     return render_template('main.html',
                            user=user,
                            courses=courses,
@@ -117,19 +120,35 @@ def add_lesson():
 
 
 # Страница с видео-уроком и чатом
-@app.route('/<video>')
-def video_page(video):
+@app.route('/video/<int:file_id>')
+def video_page(file_id):
     user_id = session.get('user_id')
     if not user_id:
         return redirect('/')
 
+    print("file_id =", file_id, type(file_id))
+
+    #file_id = int(file_id)
+    courses = db.get_courses()
+    file = db.get_file(file_id)
+
+    if not file:
+        return "Файл не найден", 404
+
     user = db.get_user(user_id)
     # ОБЯЗАТЕЛЬНО СМЕНИ test на video_page
-    return render_template('test.html', user=user, video=video)
+
+    return render_template('test.html',
+                           user=user,
+                           video=file,
+                           courses=courses)
 
 # Вспомогательная для чата
 @app.route('/chat', methods=['POST'])
 def chat():
+    llm = LlmForUser()
+    llm.start_chat(os.getenv('CHAT_START_PROMPT'))
+
     data = request.get_json()
     user_message = data.get('message', '')
 
@@ -140,7 +159,9 @@ def chat():
         reply = llm.add_message(user_message)
         reply = str(reply)
 
-        reply = re.sub(r'<think>.*?</think>', '', reply, flags=re.DOTALL).strip()
+        reply = re.sub(r'<think>.*?</think>', '',
+                       reply,
+                       flags=re.DOTALL).strip()
 
         return jsonify({'reply': reply})
     except Exception as e:
