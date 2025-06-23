@@ -1,9 +1,10 @@
 import torch
 import whisper
-from pathlib import Path
+import os
 from diffusers import LTXConditionPipeline, LTXLatentUpsamplePipeline
 from diffusers.pipelines.ltx.pipeline_ltx_condition import LTXVideoCondition
 from diffusers.utils import export_to_video, load_image, load_video
+from databaser import Databaser
 
 def round_to_nearest_resolution_acceptable_by_vae(pipe, height, width):
     height = height - (height % pipe.vae_spatial_compression_ratio)
@@ -114,19 +115,23 @@ class ImageToVideo:
 class AudioToText:
     def __init__(self):
         self.__model = whisper.load_model("turbo")
+        self.db = Databaser()
 
-    def transcribe(self, input_file_path: str):
+    def transcribe(self, file_id: str):
         try:
-            result = self.__model.transcribe(input_file_path, fp16=False)
+            file = self.db.get_file(file_id)
+            result = self.__model.transcribe(file['path'], fp16=False)
 
-            # Добавление транскрипции к общей базы данных для ответов на вопросы
-            with open("database.txt", "a") as file:
-                file.write(result["text"])
-            file.close()
+            save_dir = 'static/uploads'
+            os.makedirs(save_dir, exist_ok=True)
+            filename = file['name'] + '_tr'
+            filepath = os.path.join(save_dir, filename).replace('\\', '/')
 
-            with open(f"{Path(input_file_path).stem}_transcribed.txt", "w") as comp_source:
-                comp_source.write(result["text"])
-            comp_source.close()
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(result)
+            f.close()
+
+            self.db.add_transcribed_file(file['id'], filename, filepath)
 
         except Exception as err:
             return f"Error occurred: {err!r}"

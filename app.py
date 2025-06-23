@@ -3,9 +3,11 @@ from flask import (Flask,
                    request, redirect,
                    jsonify,
                    session)
+from whisper import transcribe
 
 from databaser import Databaser
 from LLM import LlmForUser
+from OtherModels import AudioToText
 
 import os
 from dotenv import load_dotenv
@@ -14,6 +16,7 @@ import re
 
 app = Flask(__name__)
 db = Databaser()
+att = AudioToText()
 load_dotenv()
 
 app.secret_key = os.getenv('SECRET_KEY')
@@ -116,6 +119,10 @@ def add_lesson():
         path=filepath,
         type=mime_type
     )
+
+    if mime_type.startswith('video/') or mime_type.startswith('audio/'):
+        transcribe(filename)
+
     return redirect('/main')
 
 

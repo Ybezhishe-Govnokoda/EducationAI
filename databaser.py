@@ -1,4 +1,6 @@
 import sqlite3 as sql
+from tkinter.constants import INSERT
+
 
 class Databaser:
     def __init__(self, db_name='database.db'):
@@ -24,6 +26,13 @@ class Databaser:
                             path TEXT,
                             type TEXT,
                             FOREIGN KEY(course_id) REFERENCES courses(id))''')
+
+        self.cursor.execute('''CREATE TABLE IF NOT EXISTS transcribed_files (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            file_id INTEGER,
+                            name TEXT,
+                            path TEXT,
+                            FOREIGN KEY(file_id) REFERENCES course_files(id))''')
 
     # Для работы с пользователями
     def add_user(self, name: str, mail: str, password: str):
@@ -89,6 +98,20 @@ class Databaser:
         self.cursor.execute('''SELECT * FROM course_files 
                                 WHERE id = ?''',
                                 (file_id,))
+        r = self.cursor.fetchone()
+        if not r:
+            return "None"
+        return dict(r)
+
+    def add_transcribed_file(self, file_id: int, name: str, path: str):
+        self.cursor.execute('''INSERT INTO transcribed_files (file_id, name, path) 
+                            VALUES (?, ?, ?)''', (file_id, name, path))
+        self.connection.commit()
+
+    def get_transcribed_file(self, file_id):
+        self.cursor.execute('''SELECT * FROM transcribed_files 
+                                        WHERE id = ?''',
+                            (file_id,))
         r = self.cursor.fetchone()
         if not r:
             return "None"

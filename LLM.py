@@ -65,6 +65,8 @@ class LlmForSystem:
         except Exception as err:
             return f"Error occurred: {err!r}"
 
+
+
 # llm = LlmForUser()
 # llm.start_chat('Представь себя в роли преподавателя, который отвечает на вопросы детей. Тебе нужно давать краткие ответы на русском языке. ОЧЕНЬ ВАЖНО СЛЕДИТЬ, ЧТОБЫ В ОТВЕТАХ БЫЛ ТОЛЬКО РУССКИЙ ЯЗЫК')
 # msg = input()
