@@ -121,7 +121,8 @@ def add_lesson():
     )
 
     if mime_type.startswith('video/') or mime_type.startswith('audio/'):
-        transcribe(filename)
+        file = db.get_file_by_name(lesson_name)
+        att.transcribe(file['id'])
 
     return redirect('/main')
 

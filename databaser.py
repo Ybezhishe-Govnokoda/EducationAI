@@ -103,6 +103,16 @@ class Databaser:
             return "None"
         return dict(r)
 
+    def get_file_by_name(self, filename):
+        self.cursor.execute('''SELECT * FROM course_files 
+                                        WHERE name = ?''',
+                            (filename,))
+        r = self.cursor.fetchone()
+        if not r:
+            return "None"
+        return dict(r)
+
+    # Транскрибированные файлы
     def add_transcribed_file(self, file_id: int, name: str, path: str):
         self.cursor.execute('''INSERT INTO transcribed_files (file_id, name, path) 
                             VALUES (?, ?, ?)''', (file_id, name, path))
