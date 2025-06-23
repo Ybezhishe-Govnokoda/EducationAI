@@ -1,7 +1,7 @@
 import lmstudio as lms
 from pathlib import Path
 
-from bottle import response
+#from bottle import response
 
 
 class LlmForUser:
@@ -56,7 +56,13 @@ class LlmForSystem:
         input_file.close()
 
         try:
-            summary = self.__model.respond(f"Кратко перескажи этот материал: {lesson}")
+            summary = self.__model.respond(f"""
+Ты — помощник, умеющий кратко пересказывать образовательные материалы. Вот расшифровка видеоурока:
+
+{lesson}
+
+Сократи этот текст примерно в два-три раза, сохранив все ключевые мысли, определения и важные этапы объяснений. Избегай списков. Пересказ должен быть цельным и понятным, написанным хорошим русским языком.
+""")
 
             with open(f"{Path(path).stem}_dumped.json", "w",
                       encoding="utf-8") as output_file:

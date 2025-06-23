@@ -32,6 +32,7 @@ class Databaser:
                             file_id INTEGER,
                             name TEXT,
                             path TEXT,
+                            summered BOOL,
                             FOREIGN KEY(file_id) REFERENCES course_files(id))''')
 
     # Для работы с пользователями
@@ -114,8 +115,8 @@ class Databaser:
 
     # Транскрибированные файлы
     def add_transcribed_file(self, file_id: int, name: str, path: str):
-        self.cursor.execute('''INSERT INTO transcribed_files (file_id, name, path) 
-                            VALUES (?, ?, ?)''', (file_id, name, path))
+        self.cursor.execute('''INSERT INTO transcribed_files (file_id, name, path, summered) 
+                            VALUES (?, ?, ?, 0)''', (file_id, name, path))
         self.connection.commit()
 
     def get_transcribed_file(self, file_id):
@@ -126,6 +127,11 @@ class Databaser:
         if not r:
             return "None"
         return dict(r)
+
+    # def summary_done(self, file_id: int):
+    #     self.cursor.execute('''UPDATE transcribed_files SET summered = ? WHERE id = ?''',
+    #                         (1, file_id))
+    #     self.connection.commit()
 
 
 # db = Databaser()

@@ -3,7 +3,6 @@ from flask import (Flask,
                    request, redirect,
                    jsonify,
                    session)
-from whisper import transcribe
 
 from databaser import Databaser
 from LLM import LlmForUser
